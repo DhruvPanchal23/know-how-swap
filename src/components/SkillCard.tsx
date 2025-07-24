@@ -79,8 +79,8 @@ export const SkillCard = ({ user }: SkillCardProps) => {
             <span>{user.availability}</span>
           </div>
 
-          <Button className="w-full" size="sm">
-            View Profile
+          <Button className="w-full" size="sm" asChild>
+            <a href={`/profile/${user.id}`}>View Profile</a>
           </Button>
         </div>
       </CardContent>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useUser } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +10,7 @@ import { Search, Users, ArrowRight, Zap, Shield, Heart } from "lucide-react";
 import { skillCategories, mockUsers, featuredSwaps } from "@/data/mockData";
 
 const Index = () => {
+  const { currentUser } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(mockUsers);
 
@@ -55,8 +57,24 @@ const Index = () => {
               <a href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
                 How It Works
               </a>
+              {currentUser && (
+                <a href="/swaps" className="text-sm font-medium hover:text-primary transition-colors">
+                  My Swaps
+                </a>
+              )}
             </div>
-            <Button>Join Community</Button>
+            <div className="flex items-center gap-2">
+              {currentUser ? (
+                <>
+                  <Button variant="outline" asChild>
+                    <a href={`/profile/${currentUser.id}`}>My Profile</a>
+                  </Button>
+                  <Button>Dashboard</Button>
+                </>
+              ) : (
+                <Button>Join Community</Button>
+              )}
+            </div>
           </div>
         </div>
       </nav>
