@@ -57,32 +57,33 @@ export const useUser = () => {
   return context;
 };
 
-// Mock current user for demo
-const mockCurrentUser: User = {
-  id: '1',
-  name: 'Sarah Chen',
-  email: 'sarah.chen@email.com',
-  location: 'San Francisco, CA',
-  avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=64&h=64&fit=crop&crop=face',
-  bio: 'Passionate developer and designer with 5+ years of experience. Love teaching and learning new technologies!',
-  rating: 4.9,
-  reviewCount: 23,
-  offeredSkills: [
-    { id: '1', name: 'React', level: 'Expert', category: 'Technology' },
-    { id: '2', name: 'TypeScript', level: 'Advanced', category: 'Technology' },
-    { id: '3', name: 'UI/UX Design', level: 'Intermediate', category: 'Creative' }
-  ],
-  wantedSkills: [
-    { id: '4', name: 'Spanish', level: 'Beginner', category: 'Languages' },
-    { id: '5', name: 'Photography', level: 'Beginner', category: 'Creative' }
-  ],
-  availability: 'Weekends',
-  joinedDate: '2023-01-15'
-};
+// Mock current user for demo (starts as null - user needs to login)
+const mockCurrentUser: User | null = null;
 
 // Convert mock users to full User objects
 const enhanceMockUsers = (): User[] => {
   return [
+    {
+      id: '1',
+      name: 'Sarah Chen',
+      email: 'sarah.chen@email.com',
+      location: 'San Francisco, CA',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=64&h=64&fit=crop&crop=face',
+      bio: 'Passionate developer and designer with 5+ years of experience. Love teaching and learning new technologies!',
+      rating: 4.9,
+      reviewCount: 23,
+      offeredSkills: [
+        { id: '1', name: 'React', level: 'Expert', category: 'Technology' },
+        { id: '2', name: 'TypeScript', level: 'Advanced', category: 'Technology' },
+        { id: '3', name: 'UI/UX Design', level: 'Intermediate', category: 'Creative' }
+      ],
+      wantedSkills: [
+        { id: '4', name: 'Spanish', level: 'Beginner', category: 'Languages' },
+        { id: '5', name: 'Photography', level: 'Beginner', category: 'Creative' }
+      ],
+      availability: 'Weekends',
+      joinedDate: '2023-01-15'
+    },
     {
       id: '2',
       name: 'Marcus Johnson',
@@ -145,13 +146,27 @@ const enhanceMockUsers = (): User[] => {
       ],
       availability: 'Weekends',
       joinedDate: '2023-05-08'
+    },
+    {
+      id: 'admin',
+      name: 'Admin User',
+      email: 'admin@skillswap.com',
+      location: 'Platform Admin',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face',
+      bio: 'Platform administrator with full access to manage users and swaps.',
+      rating: 5.0,
+      reviewCount: 0,
+      offeredSkills: [],
+      wantedSkills: [],
+      availability: 'Always',
+      joinedDate: '2023-01-01'
     }
   ];
 };
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(mockCurrentUser);
-  const [users, setUsers] = useState<User[]>([mockCurrentUser, ...enhanceMockUsers()]);
+  const [users, setUsers] = useState<User[]>(enhanceMockUsers());
   const [swapRequests, setSwapRequests] = useState<SwapRequest[]>([]);
 
   const updateUser = (updatedUser: User) => {

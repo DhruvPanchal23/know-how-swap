@@ -99,11 +99,12 @@ export const ProfilePage = ({ userId }: ProfilePageProps) => {
         {/* Skills and Details */}
         <div className="lg:col-span-2">
           <Tabs defaultValue="skills" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="skills">Skills</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
-              <TabsTrigger value="activity">Activity</TabsTrigger>
-            </TabsList>
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="skills">Skills</TabsTrigger>
+            <TabsTrigger value="progress">Progress</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+          </TabsList>
 
             <TabsContent value="skills" className="space-y-6">
               {/* Offered Skills */}
@@ -145,6 +146,10 @@ export const ProfilePage = ({ userId }: ProfilePageProps) => {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="progress" className="space-y-6">
+              <ProgressTracker />
             </TabsContent>
 
             <TabsContent value="reviews">

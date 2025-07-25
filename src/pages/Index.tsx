@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { useUser } from "@/contexts/UserContext";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SkillCard } from "@/components/SkillCard";
 import { SkillCategoryCard } from "@/components/SkillCategoryCard";
-import { Search, Users, ArrowRight, Zap, Shield, Heart } from "lucide-react";
+import { SkillMatchAlert } from "@/components/SkillMatchAlert";
+import { useUser } from "@/contexts/UserContext";
+import { Search, Users, ArrowRight, Zap, Shield, Heart, LogIn, User, Settings } from "lucide-react";
 import { skillCategories, mockUsers, featuredSwaps } from "@/data/mockData";
 
 const Index = () => {
-  const { currentUser } = useUser();
+  const { currentUser, setCurrentUser } = useUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(mockUsers);
 
@@ -35,44 +37,63 @@ const Index = () => {
     setFilteredUsers(filtered);
   };
 
+  const handleLogout = () => {
+    setCurrentUser(null);
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+      {/* Skill Match Alerts */}
+      <SkillMatchAlert />
+      
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-primary-foreground" />
+      <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
+                <Users className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold">SkillSwap</span>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                SkillSwap
+              </h1>
             </div>
-            <div className="hidden md:flex items-center space-x-6">
-              <a href="#categories" className="text-sm font-medium hover:text-primary transition-colors">
-                Categories
-              </a>
-              <a href="#browse" className="text-sm font-medium hover:text-primary transition-colors">
-                Browse Skills
-              </a>
-              <a href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
-                How It Works
-              </a>
-              {currentUser && (
-                <a href="/swaps" className="text-sm font-medium hover:text-primary transition-colors">
-                  My Swaps
-                </a>
-              )}
-            </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               {currentUser ? (
                 <>
-                  <Button variant="outline" asChild>
-                    <a href={`/profile/${currentUser.id}`}>My Profile</a>
+                  <Link to="/swaps">
+                    <Button variant="ghost">My Swaps</Button>
+                  </Link>
+                  <Link to="/profile">
+                    <Button variant="ghost">
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </Button>
+                  </Link>
+                  {currentUser.email === "admin@skillswap.com" && (
+                    <Link to="/admin">
+                      <Button variant="ghost">
+                        <Settings className="h-4 w-4 mr-2" />
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
+                  <Button variant="outline" onClick={handleLogout}>
+                    Logout
                   </Button>
-                  <Button>Dashboard</Button>
                 </>
               ) : (
-                <Button>Join Community</Button>
+                <>
+                  <Link to="/login">
+                    <Button variant="ghost">
+                      <LogIn className="h-4 w-4 mr-2" />
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to="/login">
+                    <Button>Join Now</Button>
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -272,9 +293,11 @@ const Index = () => {
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
             Join thousands of learners and teachers in our vibrant skill-sharing community.
           </p>
-          <Button size="lg" variant="secondary" className="text-lg px-8">
-            Join SkillSwap Today
-          </Button>
+          <Link to="/login">
+            <Button size="lg" variant="secondary" className="text-lg px-8">
+              Join SkillSwap Today
+            </Button>
+          </Link>
         </div>
       </section>
 
