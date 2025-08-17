@@ -90,6 +90,9 @@ const Index = () => {
                       Login
                     </Button>
                   </Link>
+                  <Link to="/advanced-features">
+                    <Button variant="outline">Advanced Features</Button>
+                  </Link>
                   <Link to="/login">
                     <Button>Join Now</Button>
                   </Link>

@@ -10,6 +10,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { SwapsPage } from "./pages/SwapsPage";
 import { LoginPage } from "./pages/LoginPage";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { AdvancedFeaturesPage } from "./pages/AdvancedFeaturesPage";
 import NotFound from "./pages/NotFound";
 
 // Removed queryClient and QueryClientProvider wrapper
@@ -25,6 +26,7 @@ const App = () => (
         <Route path="/profile/:userId" element={<ProfilePageWrapper />} />
         <Route path="/profile" element={<ProfilePage userId="" />} />
         <Route path="/swaps" element={<SwapsPage />} />
+        <Route path="/advanced-features" element={<AdvancedFeaturesPage />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
