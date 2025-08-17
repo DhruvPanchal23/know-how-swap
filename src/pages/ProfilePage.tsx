@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star, MapPin, Calendar, Edit, MessageSquare } from "lucide-react";
 import { SwapRequestDialog } from "@/components/SwapRequestDialog";
+import { ProgressTracker } from "@/components/ProgressTracker";
 
 interface ProfilePageProps {
   userId: string;
